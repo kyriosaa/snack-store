@@ -33,7 +33,7 @@ namespace API.Data
                 },
                 new Product
                 {
-                    Name = "Koikeya Karamucho RichCut Potato Chips-Hot Chili",
+                    Name = "Koikeya Karamucho Rich-Cut Potato Chips-Hot Chili",
                     Description =
                         "Get your heat on! Packed with red hot chili spice, these popular Japanese potato chips will make your mouth sizzle with fiery flavor!",
                     Price = 39,
