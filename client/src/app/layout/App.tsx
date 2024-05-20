@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import { Product } from "../models/product";
+import Catalog from "../../features/catalog/Catalog";
+import { Typography } from "@mui/material";
 
 function App() {
-  const [products, setProducts] = useState([
-    { name: "product1", price: 100 },
-    { name: "product2", price: 200 },
-  ]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/products")
@@ -16,23 +16,20 @@ function App() {
     setProducts((prevState) => [
       ...prevState,
       {
+        id: prevState.length + 101,
         name: "product" + (prevState.length + 1),
+        description: "some description",
         price: prevState.length * 100 + 100,
+        pictureUrl: "http://picsum.photos/200",
+        brand: "some brand",
       },
     ]);
   }
 
   return (
     <div>
-      <h1>SnackStore</h1>
-      <ul>
-        {products.map((item, index) => (
-          <li key={index}>
-            {item.name} - {item.price}
-          </li>
-        ))}
-      </ul>
-      <button onClick={addProduct}>Add product</button>
+      <Typography variant="h1">SnackStore</Typography>
+      <Catalog products={products} addProduct={addProduct} />
     </div>
   );
 }
