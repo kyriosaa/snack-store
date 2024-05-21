@@ -1,6 +1,7 @@
 import { Product } from "../../app/models/product";
 import { useState, useEffect } from "react";
 import ProductList from "./ProductList";
+import { Divider, Typography } from "@mui/material";
 
 export default function Catalog() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -13,6 +14,10 @@ export default function Catalog() {
 
   return (
     <>
+      <Typography display="flex" justifyContent="center">
+        <h1>Catalog</h1>
+      </Typography>
+      <Divider sx={{ mb: 4 }} />
       <ProductList products={products} />
     </>
   );

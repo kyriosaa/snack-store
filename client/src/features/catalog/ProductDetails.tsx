@@ -41,8 +41,8 @@ export default function ProductDetails() {
       </Grid>
       <Grid item xs={6}>
         <Typography variant="h3">{product.name}</Typography>
-        <Divider sx={{ mb: 2 }} />
-        <Typography variant="h4" color="secondary">
+        <Divider sx={{ mb: 2, mt: 2 }} />
+        <Typography variant="h4" color="secondary" sx={{ mb: 1 }}>
           {product.price} NTD
         </Typography>
         <TableContainer>
