@@ -10,6 +10,7 @@ An e-commerce website that allows users to purchase snacks.
 - **Shopping Cart:** Allows users to add products to a shopping cart before purchasing.
 - **Membership Functionality:** Allows users to register an account and log in for discount codes that can be applied for discounts.
 - **Dark Mode:** Includes a button on the page that toggles dark mode.
+- **Error Handling:** Includes a test for the different types of errors that might be returned when a user interacts with the website.
 
 **Pages**
 
