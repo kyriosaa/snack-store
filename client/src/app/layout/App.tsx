@@ -19,7 +19,7 @@ function App() {
       mode: paletteType,
       primary: {
         main: "#118ab2",
-        dark: "#121212",
+        contrastText: "121212",
       },
       secondary: {
         main: "#ef476f",

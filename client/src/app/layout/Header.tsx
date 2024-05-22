@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { FiShoppingCart } from "react-icons/fi";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const midLinks = [
   { title: "Catalog", path: "/catalog" },
@@ -80,7 +80,13 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
 
         <Box display="flex" alignItems="center">
           {/* The shopping cart icon */}
-          <IconButton size="large" edge="start" sx={{ mr: 2 }}>
+          <IconButton
+            component={Link}
+            to="/basket"
+            size="large"
+            edge="start"
+            sx={{ mr: 2 }}
+          >
             <Badge badgeContent="4" color="secondary">
               <Typography color="textPrimary" variant="h5" sx={navStyles}>
                 <FiShoppingCart />
