@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Divider,
   Grid,
   IconButton,
@@ -13,26 +14,16 @@ import {
   Typography,
 } from "@mui/material";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { useStoreContext } from "../../app/context/StoreContext";
 import { IoIosAdd, IoIosRemove } from "react-icons/io";
-import agent from "../../app/api/agent";
 import BasketSummary from "./BasketSummary";
 import { currencyFormat } from "../../app/util/util";
+import { Link } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../app/store/configureStore";
+import { addBasketItemAsync, removeBasketItemAsync } from "./basketSlice";
 
 export default function BasketPage() {
-  const { basket, setBasket, removeItem } = useStoreContext();
-
-  function handleAddItem(productId: number) {
-    agent.Basket.addItem(productId)
-      .then((basket) => setBasket(basket))
-      .catch((error) => console.log(error));
-  }
-
-  function handleRemoveItem(productId: number, quantity = 1) {
-    agent.Basket.removeItem(productId, quantity)
-      .then(() => removeItem(productId, quantity))
-      .catch((error) => console.log(error));
-  }
+  const { basket } = useAppSelector((state) => state.basket);
+  const dispatch = useAppDispatch();
 
   if (!basket)
     return <Typography variant="h3">Your basket is empty</Typography>;
@@ -83,7 +74,15 @@ export default function BasketPage() {
                 </TableCell>
                 <TableCell align="center">
                   <IconButton
-                    onClick={() => handleRemoveItem(item.productId)}
+                    onClick={() =>
+                      dispatch(
+                        removeBasketItemAsync({
+                          productId: item.productId,
+                          quantity: 1,
+                          name: "rem",
+                        })
+                      )
+                    }
                     color="error"
                     size="small"
                   >
@@ -91,7 +90,11 @@ export default function BasketPage() {
                   </IconButton>
                   {item.quantity}
                   <IconButton
-                    onClick={() => handleAddItem(item.productId)}
+                    onClick={() =>
+                      dispatch(
+                        addBasketItemAsync({ productId: item.productId })
+                      )
+                    }
                     color="success"
                     size="small"
                   >
@@ -104,7 +107,13 @@ export default function BasketPage() {
                 <TableCell align="right">
                   <IconButton
                     onClick={() =>
-                      handleRemoveItem(item.productId, item.quantity)
+                      dispatch(
+                        removeBasketItemAsync({
+                          productId: item.productId,
+                          quantity: item.quantity,
+                          name: "del",
+                        })
+                      )
                     }
                     color="error"
                   >
@@ -120,6 +129,17 @@ export default function BasketPage() {
         <Grid item xs={6} />
         <Grid item xs={6}>
           <BasketSummary />
+          <Button
+            sx={{ mt: 2 }}
+            component={Link}
+            to="/checkout"
+            variant="contained"
+            size="large"
+            color="success"
+            fullWidth
+          >
+            Checkout
+          </Button>
         </Grid>
       </Grid>
     </>
