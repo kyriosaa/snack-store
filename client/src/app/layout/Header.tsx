@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { FiShoppingCart } from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
+import { useStoreContext } from "../context/StoreContext";
 
 const midLinks = [
   { title: "Catalog", path: "/catalog" },
@@ -36,6 +37,9 @@ interface Props {
 }
 
 export default function Header({ darkMode, handleThemeChange }: Props) {
+  const { basket } = useStoreContext();
+  const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <AppBar
       position="static"
@@ -87,7 +91,7 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
             edge="start"
             sx={{ mr: 2 }}
           >
-            <Badge badgeContent="4" color="secondary">
+            <Badge badgeContent={itemCount} color="secondary">
               <Typography color="textPrimary" variant="h5" sx={navStyles}>
                 <FiShoppingCart />
               </Typography>

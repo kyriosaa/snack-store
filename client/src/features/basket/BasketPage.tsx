@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
-import { Basket } from "../../app/models/basket";
-import agent from "../../app/api/agent";
-import LoadingComponent from "../../app/layout/LoadingComponent";
 import {
+  Box,
+  Divider,
+  Grid,
   IconButton,
   Paper,
   Table,
@@ -14,66 +13,115 @@ import {
   Typography,
 } from "@mui/material";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { useStoreContext } from "../../app/context/StoreContext";
+import { IoIosAdd, IoIosRemove } from "react-icons/io";
+import agent from "../../app/api/agent";
+import BasketSummary from "./BasketSummary";
+import { currencyFormat } from "../../app/util/util";
 
 export default function BasketPage() {
-  const [loading, setLoading] = useState(true);
-  const [basket, setBasket] = useState<Basket | null>(null);
+  const { basket, setBasket, removeItem } = useStoreContext();
 
-  useEffect(() => {
-    agent.Basket.get()
+  function handleAddItem(productId: number) {
+    agent.Basket.addItem(productId)
       .then((basket) => setBasket(basket))
-      .catch((error) => console.log(error))
-      .finally(() => setLoading(false));
-  }, []);
+      .catch((error) => console.log(error));
+  }
 
-  if (loading) return <LoadingComponent message="Loading basket..." />;
+  function handleRemoveItem(productId: number, quantity = 1) {
+    agent.Basket.removeItem(productId, quantity)
+      .then(() => removeItem(productId, quantity))
+      .catch((error) => console.log(error));
+  }
 
   if (!basket)
     return <Typography variant="h3">Your basket is empty</Typography>;
 
   return (
-    <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }}>
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <strong>Product</strong>
-            </TableCell>
-            <TableCell align="right">
-              <strong>Price</strong>
-            </TableCell>
-            <TableCell align="right">
-              <strong>Quantity</strong>
-            </TableCell>
-            <TableCell align="right">
-              <strong>Subtotal</strong>
-            </TableCell>
-            <TableCell align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {basket.items.map((item) => (
-            <TableRow
-              key={item.productId}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {item.name}
+    <>
+      <Typography display="flex" justifyContent="center">
+        <h1>Cart</h1>
+      </Typography>
+      <Divider sx={{ mb: 4 }} />
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }}>
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <strong>Product</strong>
               </TableCell>
-              <TableCell align="right">{item.price} NTD</TableCell>
-              <TableCell align="right">{item.quantity}</TableCell>
-              <TableCell align="right">
-                {item.price * item.quantity} NTD
+              <TableCell align="center">
+                <strong>Price</strong>
               </TableCell>
-              <TableCell align="right">
-                <IconButton color="error">
-                  <FaRegTrashAlt fontSize="medium" />
-                </IconButton>
+              <TableCell align="center">
+                <strong>Quantity</strong>
               </TableCell>
+              <TableCell align="center">
+                <strong>Subtotal</strong>
+              </TableCell>
+              <TableCell align="right"></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {basket.items.map((item) => (
+              <TableRow
+                key={item.productId}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  <Box display="flex" alignItems="center">
+                    <img
+                      src={item.pictureUrl}
+                      alt={item.name}
+                      style={{ height: 50, marginRight: 20 }}
+                    />
+                    <span>{item.name}</span>
+                  </Box>
+                </TableCell>
+                <TableCell align="center">
+                  {currencyFormat(item.price)}
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton
+                    onClick={() => handleRemoveItem(item.productId)}
+                    color="error"
+                    size="small"
+                  >
+                    <IoIosRemove />
+                  </IconButton>
+                  {item.quantity}
+                  <IconButton
+                    onClick={() => handleAddItem(item.productId)}
+                    color="success"
+                    size="small"
+                  >
+                    <IoIosAdd />
+                  </IconButton>
+                </TableCell>
+                <TableCell align="center">
+                  {currencyFormat(item.price * item.quantity)}
+                </TableCell>
+                <TableCell align="right">
+                  <IconButton
+                    onClick={() =>
+                      handleRemoveItem(item.productId, item.quantity)
+                    }
+                    color="error"
+                  >
+                    <FaRegTrashAlt fontSize="medium" />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Grid container>
+        <Grid item xs={6} />
+        <Grid item xs={6}>
+          <BasketSummary />
+        </Grid>
+      </Grid>
+    </>
   );
 }
