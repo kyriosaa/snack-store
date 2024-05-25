@@ -14,6 +14,10 @@ export default function ProjectDescription() {
           <strong>- Navigation Bar: </strong>
           Includes a navigation bar for quick navigation between pages.
           <br />
+          <strong>- Product Catalog Tools: </strong>
+          Includes search, sorting, and filtering options for the items inside
+          the product catalog for an easier time finding each product.
+          <br />
           <strong>- Product Details: </strong>
           Includes a page for every product that contains detailed descriptions
           along with an option to add, remove, or edit the items inside the
@@ -53,10 +57,12 @@ export default function ProjectDescription() {
           Shows the credits for the website.
           <br />
           <strong>- Checkout Page: </strong>
-          Shows a list of products the user has added to their shopping cart
-          along with options to add or remove those products. Also contains an
-          area displaying the subtotal, shipping cost, and total amount that the
-          user needs to pay along with a checkout button.
+          Displays a list of available products to purchase along with the
+          product information. Each product has two buttons: one to add the
+          product to cart and another to view details about the product. The
+          page also contains search, sorting, and filter options for easier
+          navigation. Each page contains 9 products and the user can use switch
+          between pages using the page numbers at the bottom of the list.
         </body>
         <br />
         This project was made for my Cloud Computing class.

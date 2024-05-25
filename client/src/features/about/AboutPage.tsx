@@ -38,7 +38,7 @@ export default function AboutPage() {
       <Typography gutterBottom display="flex" justifyContent="center">
         <h1>Errors for testing purposes</h1>
       </Typography>
-      <ButtonGroup fullWidth>
+      <ButtonGroup fullWidth sx={{ mb: 5 }}>
         <Button
           variant="outlined"
           size="large"
