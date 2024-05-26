@@ -14,7 +14,7 @@ export default function ProjectDescription() {
           <strong>- Navigation Bar: </strong>
           Includes a navigation bar for quick navigation between pages.
           <br />
-          <strong>- Product Catalog Tools: </strong>
+          <strong>- Product Sorting: </strong>
           Includes search, sorting, and filtering options for the items inside
           the product catalog for an easier time finding each product.
           <br />
@@ -27,8 +27,12 @@ export default function ProjectDescription() {
           Allows users to add products to a shopping cart before purchasing.
           <br />
           <strong>- Membership Functionality: </strong>
-          Allows users to register an account and log in for discount codes that
-          can be applied for discounts.
+          Allows users to register an account and the website will remember
+          their current shopping carts even after logging out.
+          <br />
+          <strong>- Discount Codes: </strong>
+          Allows users to put in a discount code at checkout for a discount off
+          their order.
           <br />
           <strong>- Dark Mode: </strong>
           Includes a button on the page that toggles dark mode.
@@ -56,13 +60,27 @@ export default function ProjectDescription() {
           <strong>- Contact Page: </strong>
           Shows the credits for the website.
           <br />
-          <strong>- Checkout Page: </strong>
+          <strong>- Shopping Cart Page: </strong>
           Displays a list of available products to purchase along with the
           product information. Each product has two buttons: one to add the
           product to cart and another to view details about the product. The
           page also contains search, sorting, and filter options for easier
           navigation. Each page contains 9 products and the user can use switch
           between pages using the page numbers at the bottom of the list.
+          <br />
+          <strong>- Address Page: </strong>
+          This page allows the user to enter their shipping address. The user
+          can also press a checkbox to use the entered address inside their
+          payment details.
+          <br />
+          <strong>- Order Summary Page: </strong>
+          This page gives a complete reciept of the user's order for a final
+          review before purchasing.
+          <br />
+          <strong>- Payment Page: </strong>
+          This page allows the user to enter their payment information. The user
+          can also press a checkbox to remember their payment details for later
+          use.
         </body>
         <br />
         This project was made for my Cloud Computing class.
