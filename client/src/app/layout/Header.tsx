@@ -12,6 +12,7 @@ import {
 import { FiShoppingCart } from "react-icons/fi";
 import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "../store/configureStore";
+import SignedInMenu from "./SignedInMenu";
 
 const midLinks = [
   { title: "Catalog", path: "/catalog" },
@@ -38,6 +39,7 @@ interface Props {
 
 export default function Header({ darkMode, handleThemeChange }: Props) {
   const { basket } = useAppSelector((state) => state.basket);
+  const { user } = useAppSelector((state) => state.account);
   const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -97,17 +99,20 @@ export default function Header({ darkMode, handleThemeChange }: Props) {
               </Typography>
             </Badge>
           </IconButton>
-
-          {/* The links to the right */}
-          <List sx={{ display: "flex" }}>
-            {rightLinks.map(({ title, path }) => (
-              <ListItem component={NavLink} to={path} key={path}>
-                <Typography color="textPrimary" variant="h6" sx={navStyles}>
-                  {title}
-                </Typography>
-              </ListItem>
-            ))}
-          </List>
+          {user ? (
+            <SignedInMenu />
+          ) : (
+            /* The links to the right */
+            <List sx={{ display: "flex" }}>
+              {rightLinks.map(({ title, path }) => (
+                <ListItem component={NavLink} to={path} key={path}>
+                  <Typography color="textPrimary" variant="h6" sx={navStyles}>
+                    {title}
+                  </Typography>
+                </ListItem>
+              ))}
+            </List>
+          )}
         </Box>
       </Toolbar>
     </AppBar>
