@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { MdLockOutline } from "react-icons/md";
 import { FieldValues, useForm } from "react-hook-form";
 import { LoadingButton } from "@mui/lab";
@@ -13,6 +13,7 @@ import { signInUser } from "./accountSlice";
 
 export default function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const {
     register,
@@ -23,8 +24,12 @@ export default function Login() {
   });
 
   async function submitForm(data: FieldValues) {
-    await dispatch(signInUser(data));
-    navigate("/catalog");
+    try {
+      await dispatch(signInUser(data));
+      navigate(location.state?.from || "/catalog");
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -49,9 +54,11 @@ export default function Login() {
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <MdLockOutline />
         </Avatar>
-        <Typography>
-          <h1>Login</h1>
-        </Typography>
+        <Box>
+          <Typography>
+            <h1>Login</h1>
+          </Typography>
+        </Box>
         <Box
           component="form"
           onSubmit={handleSubmit(submitForm)}
@@ -62,7 +69,6 @@ export default function Login() {
             margin="normal"
             fullWidth
             label="Username"
-            autoFocus
             {...register("username", { required: "Username is required" })}
             error={!!errors.username}
             helperText={errors?.username?.message as string}
@@ -88,7 +94,11 @@ export default function Login() {
           </LoadingButton>
           <Grid container>
             <Grid item>
-              <Link to="/register">{"Don't have an account? Sign Up"}</Link>
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                <Typography color="text.secondary">
+                  {"Don't have an account? Sign Up"}
+                </Typography>
+              </Link>
             </Grid>
           </Grid>
         </Box>

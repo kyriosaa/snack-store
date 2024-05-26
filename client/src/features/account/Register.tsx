@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
-import { MdLockOutline } from "react-icons/md";
+import { MdOutlineCreate } from "react-icons/md";
 import { useForm } from "react-hook-form";
 import { Alert, AlertTitle, LoadingButton } from "@mui/lab";
 import agent from "../../app/api/agent";
@@ -42,11 +42,13 @@ export default function Register() {
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <MdLockOutline />
+          <MdOutlineCreate />
         </Avatar>
-        <Typography>
-          <h1>Register</h1>
-        </Typography>
+        <Box>
+          <Typography>
+            <h1>Register</h1>
+          </Typography>
+        </Box>
         <Box
           component="form"
           onSubmit={handleSubmit((data) =>
@@ -61,7 +63,6 @@ export default function Register() {
             margin="normal"
             fullWidth
             label="Username"
-            autoFocus
             {...register("username", { required: "Username is required" })}
             error={!!errors.username}
             helperText={errors?.username?.message as string}
@@ -107,7 +108,11 @@ export default function Register() {
           </LoadingButton>
           <Grid container>
             <Grid item>
-              <Link to="/login">{"Already have an account? Login"}</Link>
+              <Link to="/login" style={{ textDecoration: "none" }}>
+                <Typography color="text.secondary">
+                  {"Already have an account? Login"}
+                </Typography>
+              </Link>
             </Grid>
           </Grid>
         </Box>
