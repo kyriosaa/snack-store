@@ -9,13 +9,12 @@ namespace API.Services
 {
     public class TokenService
     {
-        private readonly IConfiguration _config;
         private readonly UserManager<User> _userManager;
+        private readonly IConfiguration _config;
         public TokenService(UserManager<User> userManager, IConfiguration config)
         {
-            _userManager = userManager;
             _config = config;
-            
+            _userManager = userManager;
         }
 
         public async Task<string> GenerateToken (User user)
