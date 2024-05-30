@@ -3,7 +3,7 @@ import { Typography } from "@mui/material";
 export default function ProjectDescription() {
   return (
     <Typography>
-      <h3>SnackStore - Cloud Computing Final Project</h3>
+      <h3>SnackStore</h3>
       <body>
         An e-commerce website that allows users to purchase snacks.
         <br />
@@ -83,7 +83,7 @@ export default function ProjectDescription() {
           use.
         </body>
         <br />
-        This project was made for my Cloud Computing class.
+        {/* This project was made for my Cloud Computing class. */}
       </body>
     </Typography>
   );
