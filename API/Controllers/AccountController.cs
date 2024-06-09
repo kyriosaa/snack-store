@@ -88,15 +88,16 @@ namespace API.Controllers
             };
         }
 
-        [Authorize]
-        [HttpGet("savedAddress")]
-        public async Task<ActionResult<UserAddress>> GetSavedAddress()
-        {
-            return await _userManager.Users
-                .Where(x => x.UserName == User.Identity.Name)
-                .Select(user => user.Address)
-                .FirstOrDefaultAsync();
-        }
+        // ---Also check CheckoutPage.tsx(51) & agent.ts(95) & AddressForm(39) & AppCheckbox.tsx---
+        // [Authorize]
+        // [HttpGet("savedAddress")]
+        // public async Task<ActionResult<UserAddress>> GetSavedAddress()
+        // {
+        //     return await _userManager.Users
+        //         .Where(x => x.UserName == User.Identity.Name)
+        //         .Select(user => user.Address)
+        //         .FirstOrDefaultAsync();
+        // }
 
         private async Task<Basket> RetrieveBasket(string buyerId)
         {
