@@ -28,7 +28,8 @@ export default function ProjectDescription() {
           <br />
           <strong>- Membership Functionality: </strong>
           Allows users to register an account and the website will remember
-          their current shopping carts even after logging out.
+          their current shopping carts and previous orders even after logging
+          out.
           <br />
           <strong>- Discount Codes: </strong>
           Allows users to put in a discount code at checkout for a discount off
@@ -81,6 +82,11 @@ export default function ProjectDescription() {
           This page allows the user to enter their payment information. The user
           can also press a checkbox to remember their payment details for later
           use.
+          <br />
+          <strong>- My Orders Page: </strong>
+          Shows the previous completed orders of each user. Also contains a
+          button for each completed order that shows a more detailed page of the
+          order when clicked.
         </body>
         <br />
         {/* This project was made for my Cloud Computing class. */}
