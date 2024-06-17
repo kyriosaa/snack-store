@@ -143,7 +143,7 @@ export default function HomePage() {
         columnSpacing={10}
         display="flex"
         justifyContent="center"
-        sx={{ mt: 35 }}
+        sx={{ mt: 30 }}
       >
         <Grid item xs={6}>
           <Typography>
