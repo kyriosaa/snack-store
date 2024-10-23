@@ -4,23 +4,37 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdOutlineCreate } from "react-icons/md";
 import { useForm } from "react-hook-form";
-import { Alert, AlertTitle, LoadingButton } from "@mui/lab";
+import { LoadingButton } from "@mui/lab";
 import agent from "../../app/api/agent";
-import { useState } from "react";
-import { List, ListItem, ListItemText } from "@mui/material";
+import { toast } from "react-toastify";
 
 export default function Register() {
-  const [validationErrors, setValidationErrors] = useState([]);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    setError,
     formState: { isSubmitting, errors, isValid },
   } = useForm({
     mode: "onTouched",
   });
+
+  function handleApiErrors(errors: any) {
+    if (errors) {
+      errors.forEach((error: string) => {
+        if (error.includes("Password")) {
+          setError("password", { message: error });
+        } else if (error.includes("Email")) {
+          setError("email", { message: error });
+        } else if (error.includes("Username")) {
+          setError("username", { message: error });
+        }
+      });
+    }
+  }
 
   return (
     <Container
@@ -52,9 +66,12 @@ export default function Register() {
         <Box
           component="form"
           onSubmit={handleSubmit((data) =>
-            agent.Account.register(data).catch((error) =>
-              setValidationErrors(error)
-            )
+            agent.Account.register(data)
+              .then(() => {
+                toast.success("Registration successful! Please login");
+                navigate("/login");
+              })
+              .catch((error) => handleApiErrors(error))
           )}
           noValidate
           sx={{ mt: 1 }}
@@ -71,7 +88,13 @@ export default function Register() {
             margin="normal"
             fullWidth
             label="Email"
-            {...register("email", { required: "Email is required" })}
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /^\w+[\w-.]*@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/,
+                message: "Not a valid email address",
+              },
+            })}
             error={!!errors.email}
             helperText={errors?.email?.message as string}
           />
@@ -80,22 +103,19 @@ export default function Register() {
             fullWidth
             label="Password"
             type="password"
-            {...register("password", { required: "Password is required" })}
+            {...register("password", {
+              required: "Password is required",
+              pattern: {
+                value:
+                  /(?=^.{6,10}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&amp;*()_+}{&quot;:;'?/&gt;.&lt;,])(?!.*\s).*$/,
+                message:
+                  "Password needs at least one number, capital letter, and special character",
+              },
+            })}
             error={!!errors.password}
             helperText={errors?.password?.message as string}
           />
-          {validationErrors.length > 0 && (
-            <Alert severity="error">
-              <AlertTitle>Validation Errors</AlertTitle>
-              <List>
-                {validationErrors.map((error) => (
-                  <ListItem key={error}>
-                    <ListItemText>{error}</ListItemText>
-                  </ListItem>
-                ))}
-              </List>
-            </Alert>
-          )}
+
           <LoadingButton
             loading={isSubmitting}
             disabled={!isValid}
