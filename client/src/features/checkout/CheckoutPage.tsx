@@ -185,7 +185,7 @@ export default function CheckoutPage() {
                 <Typography variant="subtitle1">
                   Your order number is #{orderNumber}. We have NOT emailed your
                   order confirmation, and will NOT send you an update when your
-                  order has shipped because this is a fake scam store!
+                  order has shipped because this is a fake store!
                 </Typography>
               ) : (
                 <Button variant="contained" onClick={handleBack}>
