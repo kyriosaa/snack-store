@@ -3,7 +3,8 @@
 ## About
 
 - An e-commerce website that allows users to purchase Taiwanese snacks.
-- Code written in TypeScript and C#
+- TypeScript // C#
+- React // .NET
 
 ## Features
 
