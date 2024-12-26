@@ -1,8 +1,8 @@
-# SnackStore
+# SnackStore: A Taiwanese Snack Market
 
 ## About
 
-- An e-commerce website that allows users to purchase snacks.
+- An e-commerce website that allows users to purchase Taiwanese snacks.
 - Code written in TypeScript and C#
 
 ## Features
@@ -27,6 +27,6 @@
 - **Checkout Pages -**
   - _Address Page -_ This page allows the user to enter their shipping address. The user can also press a checkbox to use the entered address inside their payment details.
   - _Order Summary Page -_ This page gives a complete reciept of the user's order for a final review before purchasing.
-  - _Payment Page:_ This page allows the user to enter their payment information. The user can also press a checkbox to remember their payment details for later use.
+  - _Payment Page -_ This page allows the user to enter their payment information. The user can also press a checkbox to remember their payment details for later use.
 
 This project was made for my Cloud Computing class.
