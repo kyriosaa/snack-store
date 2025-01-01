@@ -10,7 +10,7 @@ namespace API.DTOs
         
         [Required]
         public ShippingAddress ShippingAddress { get; set; }
-        public DateTime OrderDate { get; set; } = DateTime.Now;
+        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
         public List<OrderItemDto> OrderItems { get; set; }
         public long Subtotal { get; set; }
         public long DeliveryFee { get; set; }
